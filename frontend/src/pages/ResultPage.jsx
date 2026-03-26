@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function ResultPage() {
   const location = useLocation();
@@ -8,10 +9,7 @@ export default function ResultPage() {
   const [animated, setAnimated] = useState(false);
 
   useEffect(() => {
-    if (!result) {
-      navigate("/");
-      return;
-    }
+    if (!result) { navigate("/"); return; }
     const timer = setTimeout(() => setAnimated(true), 100);
     return () => clearTimeout(timer);
   }, [result, navigate]);
@@ -23,60 +21,65 @@ export default function ResultPage() {
   const humanProb = Number(result.human_probability) || 0;
   const sentences = result.highlighted_sentences || [];
 
-  // SVG gauge calculation
   const radius = 80;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (aiProb / 100) * circumference;
 
   return (
-    <div className="result-page">
-      {/* Background Effects */}
+    <motion.div
+      className="result-page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="result-bg">
         <div className="bg-orb bg-orb-1" />
         <div className="bg-orb bg-orb-2" />
       </div>
 
-      {/* Header */}
       <header className="result-header">
-        <button className="result-back-btn" onClick={() => navigate("/")}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <motion.button
+          className="result-back-btn"
+          onClick={() => navigate("/")}
+          whileTap={{ scale: 0.98 }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
           Back to Dashboard
-        </button>
+        </motion.button>
         <h1 className="result-page-title">Analysis Results</h1>
-        <button className="result-new-btn" onClick={() => navigate("/")}>
+        <motion.button
+          className="result-new-btn"
+          onClick={() => navigate("/")}
+          whileTap={{ scale: 0.98 }}
+        >
           + New Analysis
-        </button>
+        </motion.button>
       </header>
 
       <div className="result-content">
-        {/* Gauge Section */}
-        <div className={`result-gauge-section ${animated ? 'animated' : ''}`}>
+        {/* Gauge */}
+        <motion.div
+          className="result-gauge-section"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="result-gauge-container">
             <svg viewBox="0 0 200 200" className="result-gauge-svg">
-              {/* Background circle */}
               <circle cx="100" cy="100" r={radius} fill="none"
-                stroke="rgba(148,163,184,0.08)" strokeWidth="12"/>
-              {/* Animated fill circle */}
+                stroke="rgba(255,255,255,0.04)" strokeWidth="10"/>
               <circle cx="100" cy="100" r={radius} fill="none"
-                stroke={isAI ? "url(#result-gauge-danger)" : "url(#result-gauge-success)"}
-                strokeWidth="12" strokeLinecap="round"
+                stroke={isAI ? "#EF4444" : "#22C55E"}
+                strokeWidth="10" strokeLinecap="round"
                 strokeDasharray={circumference}
                 strokeDashoffset={animated ? offset : circumference}
                 transform="rotate(-90 100 100)"
                 className="gauge-circle-fill"
+                style={{ opacity: 0.8 }}
               />
-              <defs>
-                <linearGradient id="result-gauge-danger" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#ef4444"/>
-                  <stop offset="100%" stopColor="#f97316"/>
-                </linearGradient>
-                <linearGradient id="result-gauge-success" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#10b981"/>
-                  <stop offset="100%" stopColor="#34d399"/>
-                </linearGradient>
-              </defs>
             </svg>
             <div className="gauge-center-text">
               <span className={`gauge-percentage ${isAI ? 'danger' : 'success'}`}>
@@ -86,15 +89,19 @@ export default function ResultPage() {
             </div>
           </div>
 
-          {/* Verdict */}
           <div className={`result-verdict ${isAI ? 'verdict-ai' : 'verdict-human'}`}>
             <span className="verdict-icon">{isAI ? '🤖' : '✍️'}</span>
             <span className="verdict-text">{isAI ? 'AI Generated' : 'Human Written'}</span>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Probability Bars */}
-        <div className="result-prob-grid">
+        {/* Probability Cards */}
+        <motion.div
+          className="result-prob-grid"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+        >
           <div className="result-prob-card">
             <div className="prob-card-header">
               <span className="prob-card-label">AI Probability</span>
@@ -115,21 +122,53 @@ export default function ResultPage() {
                 style={{ width: animated ? `${humanProb}%` : '0%' }} />
             </div>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Confidence */}
+        <motion.div
+          className="result-prob-card"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+        >
+          <div className="prob-card-header">
+            <span className="prob-card-label">Confidence Level</span>
+            <span className="prob-card-value" style={{ color: 'var(--nude)' }}>
+              {result.confidence ? `${result.confidence}%` : `${Math.max(aiProb, humanProb).toFixed(0)}%`}
+            </span>
+          </div>
+          <div className="prob-card-track">
+            <div className="prob-card-fill"
+              style={{
+                width: animated ? `${result.confidence || Math.max(aiProb, humanProb)}%` : '0%',
+                background: 'var(--nude)',
+                opacity: 0.6,
+                height: '100%',
+                borderRadius: '3px',
+                transition: 'width 1.2s cubic-bezier(0.4,0,0.2,1)'
+              }} />
+          </div>
+        </motion.div>
 
         {/* Sentence Analysis */}
         {sentences.length > 0 && (
-          <div className="result-sentences-section">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+          >
             <div className="sentences-header">
               <h2>Sentence-Level Analysis</h2>
-              <span className="sentences-count">{sentences.length} sentences analyzed</span>
+              <span className="sentences-count">{sentences.length} sentences</span>
             </div>
             <div className="sentences-grid">
               {sentences.map((s, i) => (
-                <div
+                <motion.div
                   key={i}
                   className={`sentence-card ${s.is_ai ? 'sentence-ai' : 'sentence-human'}`}
-                  style={{ animationDelay: `${i * 0.05}s` }}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 + i * 0.03 }}
                 >
                   <div className="sentence-indicator">
                     <div className={`indicator-dot ${s.is_ai ? 'dot-ai' : 'dot-human'}`} />
@@ -145,22 +184,26 @@ export default function ResultPage() {
                       {s.ai_probability}% AI
                     </span>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Actions */}
         <div className="result-actions">
-          <button className="btn-result-primary" onClick={() => navigate("/")}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <motion.button
+            className="btn-result-primary"
+            onClick={() => navigate("/")}
+            whileTap={{ scale: 0.98 }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M12 5v14M5 12h14"/>
             </svg>
             New Analysis
-          </button>
+          </motion.button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

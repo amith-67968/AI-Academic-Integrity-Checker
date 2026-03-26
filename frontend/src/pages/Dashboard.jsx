@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import Sidebar from "../components/Sidebar";
 import InputArea from "../components/InputArea";
 import ResultsDisplay from "../components/ResultsDisplay";
@@ -16,7 +17,6 @@ export default function Dashboard({ session }) {
   const token = session?.access_token;
   const user = session?.user;
 
-  // ── Fetch history on mount ────────────────────────────────────
   const fetchHistory = useCallback(async () => {
     if (!token) return;
     try {
@@ -34,7 +34,6 @@ export default function Dashboard({ session }) {
     fetchHistory();
   }, [fetchHistory]);
 
-  // ── Analyse text ──────────────────────────────────────────────
   const handleAnalyze = async (text, file) => {
     setLoading(true);
     setActiveResult(null);
@@ -42,7 +41,6 @@ export default function Dashboard({ session }) {
     try {
       let res;
       if (file) {
-        // File upload → multipart form
         const formData = new FormData();
         formData.append("file", file);
         if (text) formData.append("text", text);
@@ -52,7 +50,6 @@ export default function Dashboard({ session }) {
           body: formData,
         });
       } else {
-        // Plain text → JSON
         res = await fetch(`${API}/analyze`, {
           method: "POST",
           headers: {
@@ -66,7 +63,7 @@ export default function Dashboard({ session }) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Analysis failed");
 
-      fetchHistory(); // refresh sidebar
+      fetchHistory();
       navigate("/result", { state: { result: data } });
     } catch (err) {
       alert(err.message);
@@ -75,7 +72,6 @@ export default function Dashboard({ session }) {
     }
   };
 
-  // ── Load a past submission ────────────────────────────────────
   const handleSelectHistory = async (submissionId) => {
     try {
       const res = await fetch(`${API}/submission/${submissionId}`, {
@@ -88,13 +84,18 @@ export default function Dashboard({ session }) {
     }
   };
 
-  // ── New check (clear result) ──────────────────────────────────
   const handleNewCheck = () => {
     setActiveResult(null);
   };
 
   return (
-    <div className="dashboard">
+    <motion.div
+      className="dashboard"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <Sidebar
         history={history}
         onSelect={handleSelectHistory}
@@ -103,24 +104,41 @@ export default function Dashboard({ session }) {
       />
 
       <div className="main-content">
-        <div className="main-header">
-          <h1>🛡️ AI Academic Integrity Checker</h1>
+        <header className="main-header">
+          <h1>Dashboard</h1>
           <ProfilePopup user={user} />
-        </div>
+        </header>
 
         <div className="main-body">
-          <InputArea onAnalyze={handleAnalyze} loading={loading} />
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <InputArea onAnalyze={handleAnalyze} loading={loading} />
+          </motion.div>
 
           {activeResult ? (
             <ResultsDisplay result={activeResult} />
           ) : (
-            <div className="empty-state">
-              <div className="icon">🔍</div>
-              <p>Paste text or upload a document and click <strong>Analyze</strong> to check for AI-generated content.</p>
-            </div>
+            <motion.div
+              className="empty-state"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.4">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+              <p>Paste text or upload a document to check for AI-generated content.</p>
+            </motion.div>
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

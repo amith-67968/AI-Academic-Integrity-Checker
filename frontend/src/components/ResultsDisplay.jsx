@@ -1,34 +1,39 @@
-/**
- * ResultsDisplay — shows AI/Human label, probability bars, and highlighted sentences
- */
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
 export default function ResultsDisplay({ result }) {
+  const [animated, setAnimated] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimated(true), 50);
+    return () => clearTimeout(timer);
+  }, [result]);
+
   if (!result) return null;
 
   const isAI = result.label === "AI Generated";
+  const aiProb = Number(result.ai_probability) || 0;
+  const humanProb = Number(result.human_probability) || 0;
   const sentences = result.highlighted_sentences || [];
 
   return (
     <div className="results-card">
-      <h3>📊 Analysis Results</h3>
-
-      {/* ── Label badge ──────────────────────────────────────────── */}
       <div className="result-label">
         <span className={`label-badge ${isAI ? "ai" : "human"}`}>
-          {isAI ? "🤖 AI Generated" : "✍️ Human Generated"}
+          {isAI ? "AI Generated" : "Human Written"}
         </span>
       </div>
 
-      {/* ── Probability bars ─────────────────────────────────────── */}
       <div className="probability-bars">
         <div className="prob-bar">
           <div className="prob-header">
             <span className="prob-label">AI Probability</span>
-            <span className="prob-value ai-color">{result.ai_probability}%</span>
+            <span className="prob-value ai-color">{aiProb.toFixed(1)}%</span>
           </div>
           <div className="prob-track">
             <div
               className="prob-fill ai-fill"
-              style={{ width: `${result.ai_probability}%` }}
+              style={{ width: animated ? `${aiProb}%` : "0%" }}
             />
           </div>
         </div>
@@ -36,32 +41,34 @@ export default function ResultsDisplay({ result }) {
         <div className="prob-bar">
           <div className="prob-header">
             <span className="prob-label">Human Probability</span>
-            <span className="prob-value human-color">{result.human_probability}%</span>
+            <span className="prob-value human-color">{humanProb.toFixed(1)}%</span>
           </div>
           <div className="prob-track">
             <div
               className="prob-fill human-fill"
-              style={{ width: `${result.human_probability}%` }}
+              style={{ width: animated ? `${humanProb}%` : "0%" }}
             />
           </div>
         </div>
       </div>
 
-      {/* ── Sentence highlighting ────────────────────────────────── */}
       {sentences.length > 0 && (
         <div className="highlighted-section">
-          <h4>🔎 Sentence-Level Analysis</h4>
+          <h4>Sentence Analysis ({sentences.length})</h4>
           <div className="sentences-list">
             {sentences.map((s, i) => (
-              <div
+              <motion.div
                 key={i}
                 className={`sentence-item ${s.is_ai ? "ai-sentence" : "human-sentence"}`}
+                initial={{ opacity: 0, x: -8 }}
+                animate={animated ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 0.1 + i * 0.05 }}
               >
                 {s.sentence}
                 <div className="sentence-prob">
-                  AI confidence: {s.ai_probability}%
+                  {s.ai_probability}% AI
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
