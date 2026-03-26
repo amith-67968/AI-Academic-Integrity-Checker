@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IntegrityAI - AI Academic Integrity Checker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#313442",
+              "on-tertiary-container": "#31067e",
+              "on-secondary": "#2000a4",
+              "on-tertiary-fixed": "#21005e",
+              "on-error-container": "#ffdad6",
+              "on-secondary-container": "#b4b0ff",
+              "surface-tint": "#aec6ff",
+              "outline-variant": "#424753",
+              "surface-container-high": "#262a37",
+              "inverse-on-surface": "#2c303d",
+              "on-primary-fixed-variant": "#004396",
+              "surface-bright": "#353946",
+              "surface-container-low": "#171b28",
+              "primary-container": "#4f8eff",
+              "background": "#0f131f",
+              "on-primary": "#002e6a",
+              "secondary-container": "#3826cd",
+              "tertiary": "#cebdff",
+              "primary-fixed-dim": "#aec6ff",
+              "on-primary-container": "#00285e",
+              "secondary-fixed": "#e3dfff",
+              "surface-container": "#1b1f2c",
+              "tertiary-fixed-dim": "#cebdff",
+              "error": "#ffb4ab",
+              "on-secondary-fixed": "#100069",
+              "secondary": "#c4c0ff",
+              "surface-container-lowest": "#0a0e1a",
+              "on-surface-variant": "#c2c6d6",
+              "primary": "#aec6ff",
+              "tertiary-container": "#9b7fed",
+              "on-primary-fixed": "#001a42",
+              "on-tertiary-fixed-variant": "#4f319c",
+              "on-error": "#690005",
+              "on-background": "#dfe2f3",
+              "error-container": "#93000a",
+              "on-secondary-fixed-variant": "#3622ca",
+              "tertiary-fixed": "#e8ddff",
+              "surface-dim": "#0f131f",
+              "secondary-fixed-dim": "#c4c0ff",
+              "outline": "#8c909f",
+              "surface": "#0f131f",
+              "primary-fixed": "#d8e2ff",
+              "surface-variant": "#313442",
+              "on-tertiary": "#381385",
+              "on-surface": "#dfe2f3",
+              "inverse-surface": "#dfe2f3",
+              "inverse-primary": "#005ac4"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f131f; color: #dfe2f3; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(23, 27, 40, 0.7); backdrop-filter: blur(24px); }
+        .hero-glow { background: radial-gradient(circle at 50% 50%, rgba(79, 142, 255, 0.15) 0%, rgba(108, 99, 255, 0.05) 50%, transparent 100%); }
+    </style>
+</head>
+<body class="bg-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#171b28]/70 backdrop-blur-xl border-b border-[#424753]/15 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)]">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-20">
+<div class="text-xl font-bold tracking-tighter text-white bg-clip-text text-transparent bg-gradient-to-r from-[#4F8EFF] to-[#6C63FF]">IntegrityAI</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-white font-semibold border-b-2 border-[#4F8EFF] pb-1 font-['Inter'] tracking-tight text-sm" href="#">Platform</a>
+<a class="text-[#c2c6d6] hover:text-white transition-colors font-['Inter'] tracking-tight font-medium text-sm" href="#">Solutions</a>
+<a class="text-[#c2c6d6] hover:text-white transition-colors font-['Inter'] tracking-tight font-medium text-sm" href="#">Developers</a>
+<a class="text-[#c2c6d6] hover:text-white transition-colors font-['Inter'] tracking-tight font-medium text-sm" href="#">Pricing</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#c2c6d6] hover:text-white transition-all duration-300 font-['Inter'] font-medium text-sm px-4 py-2 rounded-lg">Sign In</button>
+<button class="bg-gradient-to-r from-[#4F8EFF] to-[#6C63FF] text-white px-6 py-2.5 rounded-xl font-bold text-sm scale-95 active:scale-90 transition-transform shadow-lg shadow-primary-container/20">Get Started</button>
+</div>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+<div class="absolute inset-0 hero-glow -z-10"></div>
+<!-- Subtle Particle Decoration (Simulated with div dots) -->
+<div class="absolute top-1/4 left-1/4 w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+<div class="absolute bottom-1/3 right-1/4 w-1 h-1 bg-secondary rounded-full animate-pulse delay-700"></div>
+<div class="absolute top-1/2 right-1/10 w-1.5 h-1.5 bg-tertiary-container/30 rounded-full blur-sm"></div>
+<div class="max-w-7xl mx-auto px-6 text-center">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant/20 mb-8">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span class="text-xs font-label tracking-widest uppercase text-on-surface-variant">Version 2.0 Now Live</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-black text-on-surface tracking-tighter leading-[0.9] mb-8">
+                    AI Academic <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-container via-secondary-container to-tertiary-container">Integrity Checker</span>
+</h1>
+<p class="text-xl md:text-2xl text-on-surface-variant max-w-2xl mx-auto mb-12 leading-relaxed">
+                    Detect AI-generated content, plagiarism, and authenticity instantly with our neural-engine analysis.
+                </p>
+<div class="flex flex-col md:flex-row items-center justify-center gap-6">
+<button class="w-full md:w-auto px-10 py-4 bg-gradient-to-r from-[#4F8EFF] to-[#6C63FF] text-white font-bold rounded-xl text-lg shadow-[0_0_30px_rgba(79,142,255,0.3)] hover:shadow-[0_0_50px_rgba(79,142,255,0.5)] transition-all">
+                        Get Started
+                    </button>
+<button class="w-full md:w-auto px-10 py-4 border border-outline-variant/30 text-on-surface font-semibold rounded-xl text-lg hover:bg-surface-container-high transition-colors">
+                        View Demo
+                    </button>
+</div>
+<div class="mt-20 relative max-w-5xl mx-auto group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary-container to-secondary-container rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+<div class="relative bg-surface-container-lowest border border-outline-variant/10 rounded-2xl overflow-hidden shadow-2xl">
+<img class="w-full opacity-90 group-hover:opacity-100 transition-opacity" data-alt="sleek dashboard interface showing academic analysis results with vibrant purple and blue data visualizations on dark mode theme" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3GohxLeTiQeyAFiDSzcyGfz3007i0_Gj7Jjx3ZELlzf9HCnPyQvsrw3-vP1Y-yiRLca_DgtiJXLvwD9QDXivq0bAxrJGlKFRLrcxFwyoMIlhGczRdMNCuKkKBo2PpiVYXT-1aVNYs6aJdDnKtsApeP_3L401c6SpZ_5XVD-Mpp2vNfFZkwjpE4whOy_l5QkDair0NM803YheMokh116X9gmw4UUP-Sj3xvIqBAjtrCBy5m_3se3_BiKNcrSHG2fGlfAbfo4AP0sM"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-24 bg-surface-container-low relative">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+<div class="space-y-2">
+<div class="text-5xl font-black text-primary-container tracking-tighter">99.2%</div>
+<div class="text-sm font-label tracking-widest uppercase text-on-surface-variant">Accuracy Rate</div>
+</div>
+<div class="space-y-2">
+<div class="text-5xl font-black text-secondary text-transparent bg-clip-text bg-gradient-to-b from-secondary to-secondary-container tracking-tighter">&lt;2s</div>
+<div class="text-sm font-label tracking-widest uppercase text-on-surface-variant">Analysis Speed</div>
+</div>
+<div class="space-y-2">
+<div class="text-5xl font-black text-on-surface tracking-tighter">10M+</div>
+<div class="text-sm font-label tracking-widest uppercase text-on-surface-variant">Docs Analyzed</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-32 relative overflow-hidden">
+<div class="max-w-7xl mx-auto px-6">
+<div class="mb-20">
+<h2 class="text-sm font-label tracking-widest uppercase text-primary mb-4">Core Intelligence</h2>
+<h3 class="text-4xl md:text-5xl font-bold tracking-tight text-on-surface">Powerful detection for <br/> modern academia.</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- AI Detection -->
+<div class="glass-card p-10 rounded-3xl border border-outline-variant/10 hover:border-primary-container/40 transition-all group relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors"></div>
+<div class="w-14 h-14 bg-primary-container/20 rounded-xl flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-primary-container text-3xl" data-icon="neurology">neurology</span>
+</div>
+<h4 class="text-2xl font-bold text-on-surface mb-4">AI Detection</h4>
+<p class="text-on-surface-variant leading-relaxed">Advanced neural fingerprinting to identify GPT-4, Claude, and Gemini generated text with extreme precision.</p>
+</div>
+<!-- Plagiarism Check -->
+<div class="glass-card p-10 rounded-3xl border border-outline-variant/10 hover:border-secondary/40 transition-all group relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-secondary/10 rounded-full blur-3xl group-hover:bg-secondary/20 transition-colors"></div>
+<div class="w-14 h-14 bg-secondary-container/20 rounded-xl flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="content_copy">content_copy</span>
+</div>
+<h4 class="text-2xl font-bold text-on-surface mb-4">Plagiarism Check</h4>
+<p class="text-on-surface-variant leading-relaxed">Deep-web scanning against billions of academic papers, journals, and repositories to ensure 100% originality.</p>
+</div>
+<!-- Smart Analysis -->
+<div class="glass-card p-10 rounded-3xl border border-outline-variant/10 hover:border-tertiary-container/40 transition-all group relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-tertiary-container/10 rounded-full blur-3xl group-hover:bg-tertiary-container/20 transition-colors"></div>
+<div class="w-14 h-14 bg-tertiary-container/20 rounded-xl flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-tertiary text-3xl" data-icon="analytics">analytics</span>
+</div>
+<h4 class="text-2xl font-bold text-on-surface mb-4">Smart Analysis</h4>
+<p class="text-on-surface-variant leading-relaxed">Context-aware reporting that highlights specific suspicious areas with detailed sourcing and confidence scores.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works Section -->
+<section class="py-32 bg-surface-container-low/50 relative">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center mb-20">
+<h2 class="text-4xl md:text-5xl font-bold tracking-tight text-on-surface">Seamless Process</h2>
+</div>
+<div class="relative flex flex-col md:flex-row justify-between items-start gap-12 md:gap-4">
+<!-- Connector Line (Desktop) -->
+<div class="hidden md:block absolute top-12 left-24 right-24 h-px bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent"></div>
+<!-- Step 1 -->
+<div class="relative z-10 flex flex-col items-center text-center max-w-xs mx-auto">
+<div class="w-24 h-24 rounded-full bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center mb-8 shadow-xl">
+<span class="material-symbols-outlined text-primary-container text-4xl" data-icon="upload_file">upload_file</span>
+</div>
+<h5 class="text-xl font-bold text-on-surface mb-2">Upload</h5>
+<p class="text-on-surface-variant text-sm px-4">Drag and drop any document format including PDF, DOCX, or direct URL links.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 flex flex-col items-center text-center max-w-xs mx-auto">
+<div class="w-24 h-24 rounded-full bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center mb-8 shadow-xl">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="search_insights">search_insights</span>
+</div>
+<h5 class="text-xl font-bold text-on-surface mb-2">Analyze</h5>
+<p class="text-on-surface-variant text-sm px-4">Our neural engine scans through billions of parameters and source points in seconds.</p>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 flex flex-col items-center text-center max-w-xs mx-auto">
+<div class="w-24 h-24 rounded-full bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center mb-8 shadow-xl">
+<span class="material-symbols-outlined text-tertiary text-4xl" data-icon="verified">verified</span>
+</div>
+<h5 class="text-xl font-bold text-on-surface mb-2">Get Results</h5>
+<p class="text-on-surface-variant text-sm px-4">Receive a comprehensive PDF report with authenticity certificates and detailed breakdown.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-32">
+<div class="max-w-5xl mx-auto px-6">
+<div class="glass-card rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden border border-outline-variant/10">
+<div class="absolute -bottom-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-[100px]"></div>
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-secondary/10 rounded-full blur-[100px]"></div>
+<h2 class="text-4xl md:text-6xl font-black text-on-surface tracking-tighter mb-8">Ready to secure <br/> integrity?</h2>
+<p class="text-lg text-on-surface-variant mb-12 max-w-xl mx-auto">Join 500+ universities and research institutions using IntegrityAI to maintain academic excellence.</p>
+<button class="px-12 py-5 bg-white text-background font-black rounded-2xl text-xl hover:scale-105 transition-transform">
+                        Start Free Trial
+                    </button>
+<div class="mt-8 text-on-surface-variant text-sm font-label tracking-widest uppercase">No Credit Card Required</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-[#424753]/10 bg-[#0f131f]">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-6">
+<div class="text-lg font-black text-white">IntegrityAI</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="text-[#c2c6d6]/60 hover:text-[#4F8EFF] transition-colors duration-200 font-['Inter'] text-xs tracking-widest uppercase opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="text-[#c2c6d6]/60 hover:text-[#4F8EFF] transition-colors duration-200 font-['Inter'] text-xs tracking-widest uppercase opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+<a class="text-[#c2c6d6]/60 hover:text-[#4F8EFF] transition-colors duration-200 font-['Inter'] text-xs tracking-widest uppercase opacity-80 hover:opacity-100" href="#">Security</a>
+<a class="text-[#c2c6d6]/60 hover:text-[#4F8EFF] transition-colors duration-200 font-['Inter'] text-xs tracking-widest uppercase opacity-80 hover:opacity-100" href="#">Status</a>
+<a class="text-[#c2c6d6]/60 hover:text-[#4F8EFF] transition-colors duration-200 font-['Inter'] text-xs tracking-widest uppercase opacity-80 hover:opacity-100" href="#">Contact</a>
+</div>
+<div class="text-[#c2c6d6]/40 font-['Inter'] text-xs">
+                © 2024 IntegrityAI. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

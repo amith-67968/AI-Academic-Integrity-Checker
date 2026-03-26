@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign Up | IntegrityAI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(23, 27, 40, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .ghost-border {
+            border: 1px solid rgba(66, 71, 83, 0.15);
+        }
+        .floating-label-input:focus-within label,
+        .floating-label-input input:not(:placeholder-shown) + label {
+            transform: translateY(-1.5rem) scale(0.85);
+            color: #4F8EFF;
+        }
+        .glow-primary {
+            box-shadow: 0 0 20px rgba(79, 142, 255, 0.3);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "error": "#ffb4ab",
+                "outline": "#8c909f",
+                "secondary": "#c4c0ff",
+                "secondary-container": "#3826cd",
+                "surface-container-highest": "#313442",
+                "surface-container-high": "#262a37",
+                "on-surface": "#dfe2f3",
+                "on-secondary-container": "#b4b0ff",
+                "primary": "#aec6ff",
+                "on-surface-variant": "#c2c6d6",
+                "surface-dim": "#0f131f",
+                "surface-container-low": "#171b28",
+                "surface-container": "#1b1f2c",
+                "primary-container": "#4f8eff",
+                "background": "#0f131f",
+                "surface": "#0f131f",
+                "outline-variant": "#424753",
+                "surface-container-lowest": "#0a0e1a",
+              },
+              fontFamily: {
+                "headline": ["Inter"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 min-h-screen">
+<main class="flex min-h-screen w-full flex-col md:flex-row overflow-hidden">
+<!-- LEFT SIDE: Branding & Features (50%) -->
+<section class="relative hidden md:flex w-1/2 flex-col justify-between p-12 lg:p-20 overflow-hidden bg-surface-container-lowest">
+<!-- Background Atmospheric Glows -->
+<div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-secondary-container/20 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary-container/10 rounded-full blur-[100px]"></div>
+<!-- Header/Logo -->
+<div class="relative z-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#4F8EFF] to-[#6C63FF] flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-white text-2xl" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<span class="text-2xl font-bold tracking-tighter text-white bg-clip-text text-transparent bg-gradient-to-r from-[#4F8EFF] to-[#6C63FF]">IntegrityAI</span>
+</div>
+</div>
+<!-- Hero Content -->
+<div class="relative z-10 max-w-lg mt-12">
+<h1 class="text-5xl lg:text-6xl font-headline font-extrabold tracking-tight leading-[1.1] text-white">
+                    Join thousands of educators and institutions
+                </h1>
+<p class="mt-6 text-xl text-on-surface-variant font-medium">
+                    Trusted by 500+ Universities worldwide to uphold the future of academic excellence.
+                </p>
+<!-- Floating Feature Cards -->
+<div class="mt-16 space-y-6">
+<div class="glass-card ghost-border p-5 rounded-2xl flex items-center gap-4 transform transition-transform hover:translate-x-2 duration-500">
+<div class="p-3 rounded-lg bg-primary-container/20 text-primary-container">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div>
+<h3 class="font-bold text-white">Real-time Detection</h3>
+<p class="text-sm text-on-surface-variant">Instant analysis of submissions with AI-powered scanning.</p>
+</div>
+</div>
+<div class="glass-card ghost-border p-5 rounded-2xl flex items-center gap-4 transform translate-x-8 transition-transform hover:translate-x-10 duration-500">
+<div class="p-3 rounded-lg bg-[#6C63FF]/20 text-[#A78BFA]">
+<span class="material-symbols-outlined">travel_explore</span>
+</div>
+<div>
+<h3 class="font-bold text-white">Deep-web Scanning</h3>
+<p class="text-sm text-on-surface-variant">Cross-referencing billions of pages and academic papers.</p>
+</div>
+</div>
+<div class="glass-card ghost-border p-5 rounded-2xl flex items-center gap-4 transform transition-transform hover:translate-x-2 duration-500">
+<div class="p-3 rounded-lg bg-secondary/20 text-secondary">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<div>
+<h3 class="font-bold text-white">Authenticity Reports</h3>
+<p class="text-sm text-on-surface-variant">Detailed breakdown of content sources and similarity scores.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Quote/Social Proof -->
+<div class="relative z-10 mt-12 pt-8 border-t border-outline-variant/10">
+<div class="flex -space-x-3 mb-4">
+<img class="w-10 h-10 rounded-full border-2 border-surface-container-lowest object-cover" data-alt="portrait of a confident university professor in a modern campus library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGi1KUM2X0gBjWD8AstL4OYJSnghd2nN3oZS3_jopEsOI_8QV-9wMhLggSMUqkB-bWU9pYdySoG9pb5T-uxYdJEQScXWNuoFajDyyMfxoHh11s1CHXMLIgGCG0N7pHvgTgihAai-hsl5HET7BnBCVy6xlAdW6RZBZ8p2yA3Hct4v4Afc73gp5RX_7nSLaE00YMuMYst2txl_1D-58uvIrqyBAST83LOp1UzQ13DNcmfhffs-8-pAV6SE5K6iQu752ul1u_JkL48Kk"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface-container-lowest object-cover" data-alt="professional portrait of a dean standing in a sunlit academic hallway" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8loAKe668tVCtn6JYqCptwLJinA51JIH2zPSFqnDH4XNHKO4N5dO10zLKOXcCy91Fj6091gcvL24NkMREZeLTEiMxEEcpj-Qi9ktA4wHGUX-rjSz3txjLQEHqG0lkn2LN4-rnRzbTnX14vq991dcKU892SXVUnpwVB3sFfyYRvZ9d_VSxdhf1gy_HscxFzdnZZo-7aatn_W6-rRSioqGKgzIq5jzPmpR10JKl5l5s5vwK8GoSV07S4_WtquIRpBEnbS675E1paAQ"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface-container-lowest object-cover" data-alt="friendly academic advisor smiling with blurred campus architecture in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqL55NvcErQErqKRdJmgnwSlS8WVfIFEM5rF_q0LjDN3-TlicVs-jxGLYycMu6mKHyQE3dok__0r63lIpElebtJYeIxgGfe4kZqHOeKiCxn6bT16H5a2hjPjJwZB3KHbBEmkZ5xXG5kWlntbbNGXCHi6fyvypxaHxNxqWICTJvLcqPLKlqvoZ7cP4Sgmv1zFVP_zlUt8qk9a4roZORFdYH_niVuMtmYeUUwWWmZLAPqFwId6VBW_sta2iVWfdSFWHzedLHDoO91j8"/>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-surface-container-lowest flex items-center justify-center text-[10px] font-bold text-primary">
+                        +500
+                    </div>
+</div>
+<p class="text-xs font-label uppercase tracking-widest text-on-surface-variant/60">Global Institutional Partners</p>
+</div>
+</section>
+<!-- RIGHT SIDE: Registration Form (50%) -->
+<section class="w-full md:w-1/2 flex items-center justify-center p-6 lg:p-12 bg-surface">
+<!-- Mobile Logo Only -->
+<div class="absolute top-8 left-8 md:hidden">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#4F8EFF] to-[#6C63FF] flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-lg" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<span class="text-lg font-bold tracking-tighter text-white">IntegrityAI</span>
+</div>
+</div>
+<div class="w-full max-w-md">
+<div class="mb-10 text-left">
+<h2 class="text-3xl font-headline font-bold text-white mb-2">Create Account</h2>
+<p class="text-on-surface-variant">Start your free 14-day trial today.</p>
+</div>
+<form action="#" class="space-y-5" onsubmit="return false;">
+<!-- Full Name -->
+<div class="relative floating-label-input">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-xl">person</span>
+<input class="w-full h-14 pl-12 pr-4 rounded-xl bg-surface-container-lowest ghost-border text-on-surface focus:ring-2 focus:ring-primary-container/30 focus:border-primary-container outline-none transition-all duration-300 peer" id="fullname" name="fullname" placeholder=" " type="text"/>
+<label class="absolute left-12 top-1/2 -translate-y-1/2 text-on-surface-variant/50 pointer-events-none transition-all duration-200" for="fullname">Full Name</label>
+</div>
+<!-- Email -->
+<div class="relative floating-label-input">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-xl">mail</span>
+<input class="w-full h-14 pl-12 pr-4 rounded-xl bg-surface-container-lowest ghost-border text-on-surface focus:ring-2 focus:ring-primary-container/30 focus:border-primary-container outline-none transition-all duration-300 peer" id="email" name="email" placeholder=" " type="email"/>
+<label class="absolute left-12 top-1/2 -translate-y-1/2 text-on-surface-variant/50 pointer-events-none transition-all duration-200" for="email">Email Address</label>
+</div>
+<!-- Password Group -->
+<div class="space-y-2">
+<div class="relative floating-label-input">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-xl">lock</span>
+<input class="w-full h-14 pl-12 pr-12 rounded-xl bg-surface-container-lowest ghost-border text-on-surface focus:ring-2 focus:ring-primary-container/30 focus:border-primary-container outline-none transition-all duration-300 peer" id="password" name="password" placeholder=" " type="password"/>
+<label class="absolute left-12 top-1/2 -translate-y-1/2 text-on-surface-variant/50 pointer-events-none transition-all duration-200" for="password">Password</label>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50 hover:text-white transition-colors" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+<!-- Password Strength Indicator -->
+<div class="flex gap-1 h-1.5 w-full rounded-full overflow-hidden bg-surface-container-high mt-2">
+<div class="w-1/3 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+<div class="w-1/3 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+<div class="w-1/3 bg-surface-container-high rounded-full"></div>
+</div>
+<p class="text-[10px] font-label text-emerald-500 uppercase tracking-wider text-right">Strong Security</p>
+</div>
+<!-- Confirm Password -->
+<div class="relative floating-label-input">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-xl">verified</span>
+<input class="w-full h-14 pl-12 pr-4 rounded-xl bg-surface-container-lowest ghost-border text-on-surface focus:ring-2 focus:ring-primary-container/30 focus:border-primary-container outline-none transition-all duration-300 peer" id="confirm_password" name="confirm_password" placeholder=" " type="password"/>
+<label class="absolute left-12 top-1/2 -translate-y-1/2 text-on-surface-variant/50 pointer-events-none transition-all duration-200" for="confirm_password">Confirm Password</label>
+</div>
+<!-- Terms Checkbox -->
+<div class="flex items-start gap-3 py-2">
+<div class="relative flex items-center">
+<input class="w-5 h-5 rounded border-outline-variant/30 bg-surface-container-lowest text-primary focus:ring-primary/20 transition-all cursor-pointer" id="terms" type="checkbox"/>
+</div>
+<label class="text-sm text-on-surface-variant leading-tight cursor-pointer" for="terms">
+                            I agree to the <a class="text-primary hover:underline transition-all" href="#">Terms of Service</a> and <a class="text-primary hover:underline transition-all" href="#">Privacy Policy</a>
+</label>
+</div>
+<!-- CTA Button -->
+<button class="group relative w-full h-14 overflow-hidden rounded-xl bg-gradient-to-r from-[#4F8EFF] to-[#6C63FF] p-px transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] glow-primary" type="submit">
+<div class="flex h-full w-full items-center justify-center bg-transparent rounded-xl transition-all group-hover:bg-white/5">
+<span class="text-white font-bold tracking-tight mr-2">Create Account</span>
+<!-- Loading Spinner (Hidden by default) -->
+<div class="hidden w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+</div>
+</button>
+<!-- Divider -->
+<div class="flex items-center gap-4 py-4">
+<div class="h-px flex-1 bg-outline-variant/10"></div>
+<span class="text-xs font-label text-on-surface-variant/50 uppercase tracking-[0.2em]">or sign up with</span>
+<div class="h-px flex-1 bg-outline-variant/10"></div>
+</div>
+<!-- Social Buttons -->
+<div class="grid grid-cols-2 gap-4">
+<button class="h-14 flex items-center justify-center gap-3 rounded-xl bg-surface-container-lowest ghost-border hover:bg-surface-container-high transition-all group" type="button">
+<svg class="w-5 h-5 transition-transform group-hover:scale-110" viewbox="0 0 24 24">
+<path d="M12 5.04c1.94 0 3.51.68 4.75 1.74l3.48-3.48C18.13 1.24 15.31 0 12 0 7.31 0 3.25 2.69 1.19 6.63l3.91 3.03C6.03 7.14 8.78 5.04 12 5.04z" fill="#EA4335"></path>
+<path d="M23.49 12.27c0-.8-.07-1.56-.19-2.3H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58l3.86 3c2.26-2.09 3.56-5.17 3.56-8.79z" fill="#4285F4"></path>
+<path d="M5.1 14.66c-.26-.74-.4-1.53-.4-2.36s.14-1.62.4-2.36L1.19 6.63C.43 8.13 0 9.81 0 11.6c0 1.79.43 3.47 1.19 4.97l3.91-3.03z" fill="#FBBC05"></path>
+<path d="M12 23.33c3.15 0 5.79-1.05 7.73-2.85l-3.86-3c-1.08.73-2.47 1.16-3.87 1.16-3.22 0-5.97-2.1-6.91-5.04l-3.91 3.03c2.06 3.94 6.12 6.63 10.78 6.63z" fill="#34A853"></path>
+</svg>
+<span class="text-sm font-semibold text-white">Google</span>
+</button>
+<button class="h-14 flex items-center justify-center gap-3 rounded-xl bg-surface-container-lowest ghost-border hover:bg-surface-container-high transition-all group" type="button">
+<svg class="w-5 h-5 fill-white transition-transform group-hover:scale-110" viewbox="0 0 24 24">
+<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+</svg>
+<span class="text-sm font-semibold text-white">GitHub</span>
+</button>
+</div>
+<!-- Footer Link -->
+<div class="pt-6 text-center">
+<p class="text-sm text-on-surface-variant">
+                            Already have an account? 
+                            <a class="text-primary font-bold ml-1 hover:text-white transition-colors" href="#">Sign In</a>
+</p>
+</div>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer for Mobile View -->
+<footer class="md:hidden w-full py-8 bg-surface-container-lowest border-t border-outline-variant/10 text-center">
+<div class="flex flex-col gap-4 items-center px-8">
+<div class="flex gap-4">
+<a class="text-xs font-label text-on-surface-variant/60 hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-xs font-label text-on-surface-variant/60 hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+<p class="text-[10px] font-label text-on-surface-variant/40 tracking-widest uppercase">© 2024 IntegrityAI. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IntegrityAI | Academic Intelligence Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#aec6ff",
+                        "inverse-surface": "#dfe2f3",
+                        "primary": "#aec6ff",
+                        "secondary-fixed-dim": "#c4c0ff",
+                        "tertiary-fixed": "#e8ddff",
+                        "outline": "#8c909f",
+                        "inverse-primary": "#005ac4",
+                        "surface-bright": "#353946",
+                        "surface-container-lowest": "#0a0e1a",
+                        "secondary": "#c4c0ff",
+                        "inverse-on-surface": "#2c303d",
+                        "primary-fixed": "#d8e2ff",
+                        "on-secondary": "#2000a4",
+                        "on-tertiary-fixed-variant": "#4f319c",
+                        "tertiary": "#cebdff",
+                        "on-surface": "#dfe2f3",
+                        "outline-variant": "#424753",
+                        "surface-container-high": "#262a37",
+                        "secondary-fixed": "#e3dfff",
+                        "on-error-container": "#ffdad6",
+                        "surface-tint": "#aec6ff",
+                        "on-secondary-fixed-variant": "#3622ca",
+                        "error-container": "#93000a",
+                        "surface-dim": "#0f131f",
+                        "primary-container": "#4f8eff",
+                        "on-primary-fixed-variant": "#004396",
+                        "on-secondary-fixed": "#100069",
+                        "surface-container": "#1b1f2c",
+                        "tertiary-fixed-dim": "#cebdff",
+                        "on-background": "#dfe2f3",
+                        "on-tertiary-container": "#31067e",
+                        "on-tertiary": "#381385",
+                        "on-secondary-container": "#b4b0ff",
+                        "on-primary-fixed": "#001a42",
+                        "on-error": "#690005",
+                        "surface-container-highest": "#313442",
+                        "on-surface-variant": "#c2c6d6",
+                        "on-primary-container": "#00285e",
+                        "tertiary-container": "#9b7fed",
+                        "on-primary": "#002e6a",
+                        "background": "#0f131f",
+                        "surface-container-low": "#171b28",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed": "#21005e",
+                        "surface-variant": "#313442",
+                        "surface": "#0f131f",
+                        "secondary-container": "#3826cd"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        body {
+            background-color: #0f131f;
+            color: #dfe2f3;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(23, 27, 40, 0.6);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(66, 71, 83, 0.15);
+        }
+        .drag-zone {
+            background: radial-gradient(circle at center, rgba(79, 142, 255, 0.05) 0%, transparent 70%);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(79, 142, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="overflow-hidden">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col justify-between p-6 z-40 bg-slate-950/70 backdrop-blur-3xl h-screen w-64 border-r border-slate-800/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)]">
+<div class="space-y-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-container to-secondary-container flex items-center justify-center shadow-lg shadow-primary-container/20">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div>
+<h1 class="text-2xl font-black tracking-tighter bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">IntegrityAI</h1>
+<p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Enterprise Intelligence</p>
+</div>
+</div>
+<nav class="space-y-2">
+<!-- Active Item: Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-600/10 text-blue-400 border-l-2 border-blue-500 font-medium text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 hover:scale-[1.02] transition-all duration-200 text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                    New Analysis
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 hover:scale-[1.02] transition-all duration-200 text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                    History
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 hover:scale-[1.02] transition-all duration-200 text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                    Reports
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 hover:scale-[1.02] transition-all duration-200 text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Settings
+                </a>
+</nav>
+</div>
+<div class="mt-auto border-t border-slate-800/20 pt-6">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-slate-200 transition-colors text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+<div class="mt-4 flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant/30">
+<img alt="User" class="w-full h-full object-cover" data-alt="professional portrait of a male user wearing dark academia attire with soft blue rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjb5IC1tfOyDUBMwN3sGy_onONg5BUcaHOKGZPyffgHAhBcpRhWHv0k8bbzTukG4ClBTax3tJ56UiOboKRCKrKWtCPBbfGvsKLXakGz1daQjgd5N6naAQ-oMQrvtYT2sNUEjCGmsUYVo-DVixtPS6leAxLBpbNC2SGStsY87-qId9rfdjM8vIG_Ni6dzDHP07fcJQ9Gs07bHTZem2pBGcL4NZqDWfw1pXgUKnQpdRvWZ6m1mBur2tdqPTzDMR5ghkAyooBIPX6vOc"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold text-on-surface truncate">Marcus Chen</p>
+<p class="text-xs text-on-surface-variant truncate">Premium Account</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 right-0 left-64 h-16 flex items-center justify-between px-8 z-30 bg-slate-950/60 backdrop-blur-xl border-b border-slate-800/10">
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-400 transition-colors" data-icon="search">search</span>
+<input class="bg-surface-container-lowest border-none rounded-full pl-10 pr-4 py-1.5 text-sm w-64 focus:ring-1 focus:ring-primary-container transition-all text-on-surface" placeholder="Search analyses..." type="text"/>
+</div>
+<nav class="flex gap-6">
+<a class="text-blue-400 font-bold text-sm tracking-wide" href="#">Analytic Path</a>
+<a class="text-slate-400 hover:text-blue-300 transition-all text-sm font-semibold" href="#">Current Report</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 hover:text-on-surface hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 hover:text-on-surface hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+</button>
+<div class="h-6 w-px bg-slate-800 mx-2"></div>
+<button class="bg-gradient-to-r from-primary-container to-secondary-container text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-tight shadow-lg shadow-primary-container/20 active:scale-95 transition-all">
+                UPGRADE
+            </button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 pt-16 h-screen overflow-y-auto bg-surface-dim selection:bg-primary-container selection:text-white">
+<div class="p-8 max-w-7xl mx-auto space-y-10">
+<!-- Welcome Section -->
+<section class="space-y-6">
+<div class="flex flex-col gap-1">
+<h2 class="text-4xl font-bold tracking-tight text-on-surface">Welcome back, Marcus</h2>
+<p class="text-on-surface-variant font-medium">Your academic integrity overview for the month of October.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="glass-panel p-5 rounded-2xl glow-hover transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-blue-500/10 rounded-lg text-blue-400">
+<span class="material-symbols-outlined" data-icon="article">article</span>
+</div>
+<span class="text-xs font-bold text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-full">+12%</span>
+</div>
+<p class="text-sm font-medium text-on-surface-variant mb-1">Total Scans</p>
+<h3 class="text-3xl font-bold text-on-surface">1,284</h3>
+</div>
+<div class="glass-panel p-5 rounded-2xl glow-hover transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-purple-500/10 rounded-lg text-purple-400">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+</div>
+<span class="text-xs font-bold text-purple-400 bg-purple-400/10 px-2 py-1 rounded-full">35% rate</span>
+</div>
+<p class="text-sm font-medium text-on-surface-variant mb-1">AI Detected</p>
+<h3 class="text-3xl font-bold text-on-surface">456</h3>
+</div>
+<div class="glass-panel p-5 rounded-2xl glow-hover transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+</div>
+</div>
+<p class="text-sm font-medium text-on-surface-variant mb-1">Clean Documents</p>
+<h3 class="text-3xl font-bold text-on-surface">828</h3>
+</div>
+<div class="glass-panel p-5 rounded-2xl glow-hover transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-orange-500/10 rounded-lg text-orange-400">
+<span class="material-symbols-outlined" data-icon="pending">pending</span>
+</div>
+</div>
+<p class="text-sm font-medium text-on-surface-variant mb-1">Pending</p>
+<h3 class="text-3xl font-bold text-on-surface">2</h3>
+</div>
+</div>
+</section>
+<!-- Upload Area -->
+<section class="flex justify-center">
+<div class="w-full max-w-4xl glass-panel p-1 rounded-3xl relative overflow-hidden">
+<!-- Subtle background glow -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-container/10 blur-[100px] rounded-full"></div>
+<div class="drag-zone border-2 border-dashed border-outline-variant/30 rounded-[1.4rem] p-12 flex flex-col items-center text-center gap-6 relative z-10 hover:border-primary-container/50 transition-colors group cursor-pointer">
+<div class="w-20 h-20 rounded-2xl bg-surface-container-high flex items-center justify-center border border-outline-variant/20 shadow-xl group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-primary-container" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<div class="space-y-2">
+<h4 class="text-2xl font-bold text-on-surface">Drag &amp; drop your file here</h4>
+<p class="text-on-surface-variant">Supports PDF, DOCX, TXT, and images</p>
+</div>
+<div class="flex items-center gap-4 w-full max-w-sm">
+<div class="h-px flex-1 bg-outline-variant/20"></div>
+<span class="text-xs font-bold text-outline uppercase tracking-widest">or</span>
+<div class="h-px flex-1 bg-outline-variant/20"></div>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 rounded-xl border border-secondary-container/50 text-secondary-container font-semibold hover:bg-secondary-container/10 transition-all">
+                                Paste text directly
+                            </button>
+<button class="px-8 py-2.5 rounded-xl bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-bold shadow-lg shadow-primary-container/30 hover:shadow-primary-container/50 active:scale-95 transition-all">
+                                Analyze
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Results Section -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="text-xl font-bold tracking-tight">Latest Analysis Results</h3>
+<button class="text-sm font-semibold text-primary hover:underline">Full Analytics →</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Score 1 -->
+<div class="glass-panel p-6 rounded-2xl flex items-center justify-between glow-hover">
+<div class="space-y-1">
+<p class="text-sm font-bold text-on-surface-variant uppercase tracking-wider">AI Probability</p>
+<h4 class="text-3xl font-black text-on-surface">78%</h4>
+<p class="text-xs text-error font-medium">Likely AI Generated</p>
+</div>
+<div class="relative w-20 h-20">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container-high" cx="40" cy="40" fill="transparent" r="34" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary-container" cx="40" cy="40" fill="transparent" r="34" stroke="currentColor" stroke-dasharray="213.6" stroke-dashoffset="47" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container" data-icon="smart_toy">smart_toy</span>
+</div>
+</div>
+</div>
+<!-- Score 2 -->
+<div class="glass-panel p-6 rounded-2xl flex items-center justify-between glow-hover">
+<div class="space-y-1">
+<p class="text-sm font-bold text-on-surface-variant uppercase tracking-wider">Plagiarism</p>
+<h4 class="text-3xl font-black text-on-surface">12%</h4>
+<p class="text-xs text-emerald-400 font-medium">Low Similarity</p>
+</div>
+<div class="relative w-20 h-20">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container-high" cx="40" cy="40" fill="transparent" r="34" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-emerald-400" cx="40" cy="40" fill="transparent" r="34" stroke="currentColor" stroke-dasharray="213.6" stroke-dashoffset="188" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-emerald-400" data-icon="content_copy">content_copy</span>
+</div>
+</div>
+</div>
+<!-- Score 3 -->
+<div class="glass-panel p-6 rounded-2xl glow-hover">
+<p class="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-2">Risk Level</p>
+<div class="flex items-center justify-between mb-4">
+<div class="px-3 py-1 bg-orange-500/20 border border-orange-500/30 rounded-lg">
+<span class="text-orange-400 text-sm font-bold">Medium Risk</span>
+</div>
+<span class="text-xs text-on-surface-variant font-medium">92% Confidence</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="h-full bg-orange-500 w-[70%] rounded-full shadow-[0_0_8px_rgba(249,115,22,0.5)]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent History Table -->
+<section class="space-y-6 pb-12">
+<h3 class="text-xl font-bold tracking-tight">Recent Analyses</h3>
+<div class="glass-panel rounded-2xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/10">
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest">Document Name</th>
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest">Date</th>
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest">AI Score</th>
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest">Plagiarism</th>
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest">Risk</th>
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-blue-500/10 rounded-lg text-blue-400">
+<span class="material-symbols-outlined text-sm" data-icon="description">description</span>
+</div>
+<span class="text-sm font-semibold text-on-surface">Ethics_Final_Paper_v2.docx</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 24, 2024</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
+<span class="text-sm font-bold text-on-surface">78%</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium text-on-surface-variant">12%</td>
+<td class="px-6 py-4">
+<span class="text-[10px] font-black uppercase tracking-tighter text-orange-400 bg-orange-400/10 px-2 py-0.5 rounded">Medium</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+<span class="text-xs font-bold text-emerald-500">Completed</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex gap-2">
+<button class="p-2 text-slate-400 hover:text-primary-container transition-colors"><span class="material-symbols-outlined" data-icon="visibility">visibility</span></button>
+<button class="p-2 text-slate-400 hover:text-primary-container transition-colors"><span class="material-symbols-outlined" data-icon="download">download</span></button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-blue-500/10 rounded-lg text-blue-400">
+<span class="material-symbols-outlined text-sm" data-icon="description">description</span>
+</div>
+<span class="text-sm font-semibold text-on-surface">Abstract_Draft_CS.pdf</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 24, 2024</td>
+<td class="px-6 py-4">
+<div class="h-2 w-12 bg-surface-container-high rounded animate-pulse"></div>
+</td>
+<td class="px-6 py-4">
+<div class="h-2 w-8 bg-surface-container-high rounded animate-pulse"></div>
+</td>
+<td class="px-6 py-4">
+<div class="h-4 w-16 bg-surface-container-high rounded animate-pulse"></div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.5)]"></div>
+<span class="text-xs font-bold text-blue-500">Processing</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex gap-2">
+<div class="h-8 w-8 bg-surface-container-high rounded-lg animate-pulse"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-blue-500/10 rounded-lg text-blue-400">
+<span class="material-symbols-outlined text-sm" data-icon="description">description</span>
+</div>
+<span class="text-sm font-semibold text-on-surface">Thesis_Final_v1.docx</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 23, 2024</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+<span class="text-sm font-bold text-on-surface">4%</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium text-on-surface-variant">2%</td>
+<td class="px-6 py-4">
+<span class="text-[10px] font-black uppercase tracking-tighter text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded">Low</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+<span class="text-xs font-bold text-emerald-500">Completed</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex gap-2">
+<button class="p-2 text-slate-400 hover:text-primary-container transition-colors"><span class="material-symbols-outlined" data-icon="visibility">visibility</span></button>
+<button class="p-2 text-slate-400 hover:text-primary-container transition-colors"><span class="material-symbols-outlined" data-icon="download">download</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+<!-- Background Elements -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
+<div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary-container/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-secondary-container/5 blur-[100px] rounded-full"></div>
+</div>
+</body></html>

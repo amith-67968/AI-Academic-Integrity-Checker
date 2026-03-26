@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analysis Results | IntegrityAI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-highest": "#313442",
+                        "on-surface-variant": "#c2c6d6",
+                        "secondary": "#c4c0ff",
+                        "tertiary-fixed-dim": "#cebdff",
+                        "on-primary-container": "#00285e",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#b4b0ff",
+                        "tertiary-container": "#9b7fed",
+                        "secondary-fixed-dim": "#c4c0ff",
+                        "on-surface": "#dfe2f3",
+                        "surface-container": "#1b1f2c",
+                        "primary-fixed": "#d8e2ff",
+                        "primary-container": "#4f8eff",
+                        "on-secondary-fixed": "#100069",
+                        "on-primary-fixed-variant": "#004396",
+                        "surface-variant": "#313442",
+                        "on-background": "#dfe2f3",
+                        "surface-container-lowest": "#0a0e1a",
+                        "surface": "#0f131f",
+                        "error": "#ffb4ab",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#21005e",
+                        "surface-container-high": "#262a37",
+                        "on-secondary": "#2000a4",
+                        "surface-bright": "#353946",
+                        "inverse-primary": "#005ac4",
+                        "on-tertiary-container": "#31067e",
+                        "surface-tint": "#aec6ff",
+                        "surface-dim": "#0f131f",
+                        "on-primary": "#002e6a",
+                        "outline-variant": "#424753",
+                        "secondary-fixed": "#e3dfff",
+                        "on-tertiary-fixed-variant": "#4f319c",
+                        "on-error": "#690005",
+                        "inverse-surface": "#dfe2f3",
+                        "primary": "#aec6ff",
+                        "on-secondary-fixed-variant": "#3622ca",
+                        "outline": "#8c909f",
+                        "on-primary-fixed": "#001a42",
+                        "surface-container-low": "#171b28",
+                        "background": "#0f131f",
+                        "secondary-container": "#3826cd",
+                        "inverse-on-surface": "#2c303d",
+                        "primary-fixed-dim": "#aec6ff",
+                        "tertiary-fixed": "#e8ddff",
+                        "tertiary": "#cebdff",
+                        "on-tertiary": "#381385"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(23, 27, 40, 0.7);
+            backdrop-filter: blur(24px);
+            border-top: 1px solid rgba(66, 71, 83, 0.3);
+        }
+        .highlight-red { background: rgba(239, 68, 68, 0.15); border-bottom: 2px solid #EF4444; }
+        .highlight-green { background: rgba(34, 197, 94, 0.1); border-bottom: 2px solid #22C55E; }
+        .highlight-yellow { background: rgba(234, 179, 8, 0.15); border-bottom: 2px solid #EAB308; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #313442; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #424753; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container/30">
+<!-- TopNavBar -->
+<nav class="bg-[#171b28]/70 backdrop-blur-3xl font-['Inter'] antialiased text-sm tracking-tight docked full-width top-0 sticky z-50 border-b border-[#424753]/15 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] flex justify-between items-center w-full px-8 h-16">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black tracking-tighter bg-gradient-to-r from-[#4F8EFF] to-[#6C63FF] bg-clip-text text-transparent">IntegrityAI</span>
+<div class="hidden md:flex gap-6">
+<a class="text-[#c2c6d6] hover:text-white transition-colors" href="#">Dashboard</a>
+<a class="text-[#4F8EFF] border-b-2 border-[#4F8EFF] pb-1 font-bold" href="#">Analytics</a>
+<a class="text-[#c2c6d6] hover:text-white transition-colors" href="#">Reports</a>
+<a class="text-[#c2c6d6] hover:text-white transition-colors" href="#">Archive</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-[#262a37] p-2 rounded-full transition-all active:scale-95">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-[#262a37] p-2 rounded-full transition-all active:scale-95">settings</button>
+<div class="h-8 w-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a professional male user in soft studio lighting with a neutral gray background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrgAB1ExdrbHisE0rlmd3jW4Y4EurgHEMr7HKybNadrTRw50SL-1LFoh03IQ1er9tVWiPK_6dvEy01jJ9yKc8NCQW9NdHhoqO1V_D3GOREghNoo4CyfrKrlROhQrD7o6A7GU50aApFrrA8wSBh-7I7Z6bsh_qMhWMCafYABuc9noVrLh2O7vNgiaoORHXbk5YePxZiJb5KhuJJP-FYLqBB1d_avQpGqGQc1vmBBSBuJya5HxC109bfAbIPKaNOwNINvtL-oY40Mt8"/>
+</div>
+</div>
+</nav>
+<div class="flex min-h-screen">
+<!-- SideNavBar (Semantic mapping: History is active as we are looking at a result) -->
+<aside class="bg-[#0f131f] font-['Inter'] text-sm font-medium h-screen w-64 fixed left-0 top-0 z-40 flex flex-col pt-20 pb-8 h-full bg-[#171b28]">
+<div class="px-6 mb-8">
+<button class="w-full bg-gradient-to-r from-primary-container to-secondary-container text-on-surface font-bold py-3 px-4 rounded-xl shadow-lg shadow-primary-container/20 flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+                    New Analysis
+                </button>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 text-[#c2c6d6] py-3 px-6 hover:translate-x-1 transition-transform cursor-pointer hover:text-white" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Overview
+                </a>
+<a class="flex items-center gap-3 text-[#c2c6d6] py-3 px-6 hover:translate-x-1 transition-transform cursor-pointer hover:text-white" href="#">
+<span class="material-symbols-outlined">biotech</span>
+                    Deep Analysis
+                </a>
+<a class="flex items-center gap-3 text-[#c2c6d6] py-3 px-6 hover:translate-x-1 transition-transform cursor-pointer hover:text-white" href="#">
+<span class="material-symbols-outlined">warning</span>
+                    Risk Signals
+                </a>
+<a class="flex items-center gap-3 text-[#c2c6d6] py-3 px-6 hover:translate-x-1 transition-transform cursor-pointer hover:text-white" href="#">
+<span class="material-symbols-outlined">group</span>
+                    Team Access
+                </a>
+<a class="flex items-center gap-3 bg-gradient-to-r from-[#4F8EFF]/10 to-transparent text-[#4F8EFF] border-r-2 border-[#4F8EFF] py-3 px-6 cursor-pointer" href="#">
+<span class="material-symbols-outlined">history</span>
+                    History
+                </a>
+</nav>
+<div class="mt-auto space-y-1">
+<a class="flex items-center gap-3 text-[#c2c6d6] py-3 px-6 hover:translate-x-1 transition-transform cursor-pointer hover:text-white" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Help Center
+                </a>
+<a class="flex items-center gap-3 text-[#c2c6d6] py-3 px-6 hover:translate-x-1 transition-transform cursor-pointer hover:text-white" href="#">
+<span class="material-symbols-outlined">logout</span>
+                    Log Out
+                </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 p-8 bg-surface-dim">
+<!-- Header Actions -->
+<div class="flex justify-between items-end mb-10">
+<div>
+<h1 class="text-3xl font-black tracking-tight text-on-surface mb-2">Analysis Results: The Future of Quantum Computing.pdf</h1>
+<p class="text-on-surface-variant text-sm">Processed on October 24, 2023 • Integrity Engine v4.2</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 rounded-xl border border-outline-variant/30 text-on-surface hover:bg-surface-container-high transition-all flex items-center gap-2 text-sm font-semibold">
+<span class="material-symbols-outlined text-lg">refresh</span>
+                        Re-analyze
+                    </button>
+<button class="px-5 py-2.5 rounded-xl border border-outline-variant/30 text-on-surface hover:bg-surface-container-high transition-all flex items-center gap-2 text-sm font-semibold">
+<span class="material-symbols-outlined text-lg">share</span>
+                        Share Results
+                    </button>
+<button class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary-container to-secondary-container text-on-surface shadow-lg shadow-primary-container/20 flex items-center gap-2 text-sm font-bold active:scale-95 transition-all">
+<span class="material-symbols-outlined text-lg">download</span>
+                        Download Report
+                    </button>
+</div>
+</div>
+<div class="flex gap-8">
+<!-- Left Panel: Analysis Area -->
+<section class="w-[60%] space-y-6">
+<!-- Legend Card -->
+<div class="glass-panel p-4 rounded-2xl flex items-center justify-between shadow-xl">
+<div class="flex gap-6">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#EF4444]"></div>
+<span class="text-xs font-bold tracking-wider uppercase text-on-surface-variant">AI-Generated</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#22C55E]"></div>
+<span class="text-xs font-bold tracking-wider uppercase text-on-surface-variant">Human-Written</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#EAB308]"></div>
+<span class="text-xs font-bold tracking-wider uppercase text-on-surface-variant">Suspicious</span>
+</div>
+</div>
+<div class="text-xs text-outline font-medium italic">Hover over text for details</div>
+</div>
+<!-- Text Area -->
+<div class="glass-panel p-10 rounded-3xl shadow-2xl min-h-[800px] leading-relaxed text-on-surface/90">
+<div class="max-w-none prose prose-invert">
+<p class="mb-6">
+<span class="highlight-green px-1 py-0.5 rounded cursor-help">Quantum computing represents a paradigm shift in how we process information, moving beyond the binary constraints of classical bits to the multidimensional potential of qubits.</span>
+<span class="highlight-green px-1 py-0.5 rounded cursor-help">Researchers have been exploring superconducting circuits and trapped ions as primary candidates for stable qubit implementation.</span>
+</p>
+<p class="mb-6">
+<span class="highlight-red px-1 py-0.5 rounded cursor-help relative group">
+                                    The advancement of quantum error correction is critical for the development of fault-tolerant quantum computers that can perform complex calculations over extended periods.
+                                    <!-- Tooltip -->
+<span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-surface-container-highest text-on-surface p-3 rounded-xl text-xs shadow-2xl border border-outline-variant/20 invisible group-hover:visible z-10">
+<span class="flex items-center gap-2 text-[#EF4444] font-bold mb-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                            High Probability AI
+                                        </span>
+                                        Highly probable AI generation based on syntax pattern and lack of lexical diversity.
+                                    </span>
+</span>
+<span class="highlight-red px-1 py-0.5 rounded cursor-help">By utilizing quantum entanglement and superposition, these systems can solve problems that are currently intractable for even the world's fastest supercomputers.</span>
+<span class="highlight-red px-1 py-0.5 rounded cursor-help">Large-scale quantum supremacy will likely have profound implications for cryptography, material science, and pharmaceutical research.</span>
+</p>
+<p class="mb-6">
+<span class="highlight-yellow px-1 py-0.5 rounded cursor-help">However, current hardware remains in the Noisy Intermediate-Scale Quantum (NISQ) era, characterized by high decoherence rates.</span>
+<span class="highlight-green px-1 py-0.5 rounded cursor-help">I recall my first visit to the laboratory in 2018, where the cooling systems hummed with a rhythmic, mechanical pulse that seemed at odds with the delicate physics happening within.</span>
+<span class="highlight-yellow px-1 py-0.5 rounded cursor-help">The integration of classical control systems with quantum processors presents a significant engineering hurdle that demands interdisciplinary collaboration.</span>
+</p>
+<p class="mb-6">
+<span class="highlight-red px-1 py-0.5 rounded cursor-help">Future iterations of quantum software will need to be optimized for specific hardware architectures to maximize gate fidelity and minimize noise-induced errors.</span>
+<span class="highlight-red px-1 py-0.5 rounded cursor-help">As the field matures, standardized benchmarks will be essential to evaluate the comparative performance of different quantum computing platforms across diverse computational tasks.</span>
+</p>
+</div>
+</div>
+</section>
+<!-- Right Panel: Analytics Dashboard -->
+<aside class="w-[40%] space-y-6">
+<!-- Overall Score Card -->
+<div class="glass-panel p-8 rounded-3xl shadow-xl flex flex-col items-center text-center relative overflow-hidden group">
+<div class="absolute -top-12 -right-12 w-32 h-32 bg-error/10 blur-3xl rounded-full group-hover:bg-error/20 transition-all"></div>
+<h3 class="text-xs font-black tracking-[0.2em] uppercase text-on-surface-variant mb-6">Overall Probability</h3>
+<div class="relative w-48 h-48 mb-6">
+<!-- Circular Progress Background -->
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 100 100">
+<circle class="text-surface-container-highest stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-width="8"></circle>
+<circle class="text-[#EF4444] stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-dasharray="251.2" stroke-dashoffset="55.26" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-black text-on-surface">78%</span>
+<span class="text-[10px] font-bold text-[#EF4444] tracking-wider uppercase">AI Probability</span>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant">Document shows strong characteristics of large language model generation.</p>
+</div>
+<!-- Score Breakdown Card -->
+<div class="glass-panel p-6 rounded-3xl shadow-xl">
+<h3 class="text-xs font-black tracking-[0.2em] uppercase text-on-surface-variant mb-6">Breakdown</h3>
+<div class="space-y-5">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface">AI-Generated</span>
+<span class="text-[#EF4444]">78%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-[#EF4444] w-[78%] rounded-full shadow-[0_0_10px_rgba(239,68,68,0.4)]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface">Human-Written</span>
+<span class="text-[#22C55E]">22%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-[#22C55E] w-[22%] rounded-full shadow-[0_0_10px_rgba(34,197,94,0.4)]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface">Plagiarism</span>
+<span class="text-primary-container">12%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[12%] rounded-full shadow-[0_0_10px_rgba(79,142,255,0.4)]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Risk & Confidence -->
+<div class="grid grid-cols-2 gap-4">
+<div class="glass-panel p-5 rounded-2xl shadow-xl">
+<h3 class="text-[10px] font-black tracking-widest uppercase text-on-surface-variant mb-3">Risk Level</h3>
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-[#EF4444]/20 text-[#EF4444] text-[10px] font-black mb-2 uppercase tracking-tighter">
+                                High Risk
+                            </div>
+<p class="text-[11px] leading-tight text-on-surface-variant">Multiple AI patterns detected in key sections.</p>
+</div>
+<div class="glass-panel p-5 rounded-2xl shadow-xl">
+<h3 class="text-[10px] font-black tracking-widest uppercase text-on-surface-variant mb-3">Confidence</h3>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-lg font-black text-on-surface">94%</span>
+<span class="text-[10px] font-bold text-primary">High</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full">
+<div class="h-full bg-primary w-[94%] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Metrics Grid -->
+<div class="glass-panel p-6 rounded-3xl shadow-xl">
+<h3 class="text-xs font-black tracking-[0.2em] uppercase text-on-surface-variant mb-6">Document Metrics</h3>
+<div class="grid grid-cols-2 gap-y-6 gap-x-4">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-primary text-sm">description</span>
+</div>
+<div>
+<div class="text-lg font-black leading-none">1,248</div>
+<div class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Words</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="p-2 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-secondary text-sm">segment</span>
+</div>
+<div>
+<div class="text-lg font-black leading-none">52</div>
+<div class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Sentences</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="p-2 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-[#EF4444] text-sm" style="font-variation-settings: 'FILL' 1;">flag</span>
+</div>
+<div>
+<div class="text-lg font-black leading-none">18</div>
+<div class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Flagged</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="p-2 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-tertiary text-sm">auto_stories</span>
+</div>
+<div>
+<div class="text-lg font-black leading-none">82%</div>
+<div class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Unique Vocab</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Ad / Info Area -->
+<div class="relative overflow-hidden p-6 rounded-3xl bg-gradient-to-br from-secondary-container/20 to-primary-container/20 border border-outline-variant/20">
+<div class="absolute -right-8 -bottom-8 w-24 h-24 bg-primary blur-3xl opacity-20"></div>
+<h4 class="text-sm font-bold mb-2">Need a verified certificate?</h4>
+<p class="text-xs text-on-surface-variant mb-4">Upgrade to Integrity Pro for academic verification and official reporting.</p>
+<button class="w-full py-2 bg-on-surface text-surface-container-lowest text-xs font-black rounded-xl hover:bg-white transition-colors">Upgrade to Pro</button>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</body></html>

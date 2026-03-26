@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import InputArea from "../components/InputArea";
 import ResultsDisplay from "../components/ResultsDisplay";
@@ -10,6 +11,7 @@ export default function Dashboard({ session }) {
   const [history, setHistory] = useState([]);
   const [activeResult, setActiveResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const token = session?.access_token;
   const user = session?.user;
@@ -64,8 +66,8 @@ export default function Dashboard({ session }) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Analysis failed");
 
-      setActiveResult(data);
       fetchHistory(); // refresh sidebar
+      navigate("/result", { state: { result: data } });
     } catch (err) {
       alert(err.message);
     } finally {
@@ -80,7 +82,7 @@ export default function Dashboard({ session }) {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-      if (res.ok) setActiveResult(data);
+      if (res.ok) navigate("/result", { state: { result: data } });
     } catch (err) {
       console.error("Failed to load submission:", err);
     }

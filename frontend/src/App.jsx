@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { supabase } from "./lib/supabase";
+import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import ResultPage from "./pages/ResultPage";
 import "./App.css";
 
 function App() {
@@ -52,6 +54,16 @@ function App() {
           element={
             session ? (
               <Dashboard session={session} />
+            ) : (
+              <LandingPage />
+            )
+          }
+        />
+        <Route
+          path="/result"
+          element={
+            session ? (
+              <ResultPage />
             ) : (
               <Navigate to="/login" />
             )
