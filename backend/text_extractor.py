@@ -3,7 +3,6 @@ Text Extraction Layer — supports PDF, Image (OCR), and TXT files.
 """
 
 import os
-import re
 from dotenv import load_dotenv
 
 load_dotenv()

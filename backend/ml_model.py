@@ -7,9 +7,8 @@ Functions:
 """
 
 import os
-import re
-import joblib
-import nltk
+import joblib  # type: ignore
+import nltk  # type: ignore
 
 # Download punkt tokenizer data (needed for sentence splitting)
 try:
@@ -17,7 +16,7 @@ try:
 except LookupError:
     nltk.download('punkt_tab', quiet=True)
 
-from nltk.tokenize import sent_tokenize
+from nltk.tokenize import sent_tokenize  # type: ignore
 
 # ── Paths ────────────────────────────────────────────────────────────────────
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "model")
@@ -80,13 +79,13 @@ def analyze_text(text: str) -> dict:
         s_ai, _ = _predict_proba(pipeline, clean)
         highlighted.append({
             "sentence": clean,
-            "ai_probability": round(s_ai * 100, 2),
+            "ai_probability": float(f"{s_ai * 100:.2f}"),
             "is_ai": s_ai > 0.6,  # threshold for highlighting
         })
 
     return {
         "label": label,
-        "ai_probability": round(ai_prob * 100, 2),
-        "human_probability": round(human_prob * 100, 2),
+        "ai_probability": float(f"{ai_prob * 100:.2f}"),
+        "human_probability": float(f"{human_prob * 100:.2f}"),
         "highlighted_sentences": highlighted,
     }

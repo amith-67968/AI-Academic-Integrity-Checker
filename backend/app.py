@@ -30,13 +30,42 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
-# Supabase client
+# Supabase client (created lazily to allow startup without credentials)
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")  # anon key
 SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY")  # service role key
 
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-supabase_admin: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+_supabase = None
+_supabase_admin = None
+
+def get_supabase() -> Client:
+    """Get the anon Supabase client (lazy init)."""
+    global _supabase
+    if _supabase is None:
+        if not SUPABASE_URL or not SUPABASE_KEY:
+            raise RuntimeError(
+                "Missing SUPABASE_URL / SUPABASE_KEY env vars. "
+                "Copy .env.example → .env and fill in your Supabase credentials."
+            )
+        _supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+    return _supabase
+
+def get_supabase_admin() -> Client:
+    """Get the service-role Supabase client (lazy init)."""
+    global _supabase_admin
+    if _supabase_admin is None:
+        if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
+            raise RuntimeError(
+                "Missing SUPABASE_URL / SUPABASE_SERVICE_KEY env vars. "
+                "Copy .env.example → .env and fill in your Supabase credentials."
+            )
+        _supabase_admin = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+    return _supabase_admin
+
+if not SUPABASE_URL or not SUPABASE_KEY or not SUPABASE_SERVICE_KEY:
+    print("⚠️  Missing Supabase env vars! Copy .env.example → .env and fill in credentials.")
+    print("   Required: SUPABASE_URL, SUPABASE_KEY, SUPABASE_SERVICE_KEY")
+    print("   The server will start, but auth/DB routes will fail until configured.")
 
 # Pre-load the ML model at startup
 try:
@@ -58,7 +87,7 @@ def require_auth(f):
         token = auth_header.split(" ", 1)[1]
         try:
             # Verify session using the token
-            user_response = supabase.auth.get_user(token)
+            user_response = get_supabase().auth.get_user(token)
             user = user_response.user
             if not user:
                 return jsonify({"error": "Invalid token"}), 401
@@ -85,7 +114,7 @@ def signup():
 
     try:
         # Sign up via Supabase Auth
-        res = supabase.auth.sign_up({
+        res = get_supabase().auth.sign_up({
             "email": email,
             "password": password,
             "options": {"data": {"username": username}},
@@ -96,7 +125,7 @@ def signup():
             return jsonify({"error": "Signup failed"}), 400
 
         # Insert profile row
-        supabase_admin.table("profiles").upsert({
+        get_supabase_admin().table("profiles").upsert({
             "id": user.id,
             "email": email,
             "username": username,
@@ -130,7 +159,7 @@ def login():
         return jsonify({"error": "Email and password are required"}), 400
 
     try:
-        res = supabase.auth.sign_in_with_password({
+        res = get_supabase().auth.sign_in_with_password({
             "email": email,
             "password": password,
         })
@@ -138,7 +167,7 @@ def login():
         session = res.session
 
         # Fetch username from profiles
-        profile = supabase_admin.table("profiles").select("username").eq("id", user.id).single().execute()
+        profile = get_supabase_admin().table("profiles").select("username").eq("id", user.id).single().execute()
         username = profile.data.get("username", "") if profile.data else ""
 
         return jsonify({
@@ -212,7 +241,7 @@ def analyze():
             "highlighted_sentences": json.dumps(result["highlighted_sentences"]),
             "created_at": datetime.utcnow().isoformat(),
         }
-        insert_res = supabase_admin.table("submissions").insert(row).execute()
+        insert_res = get_supabase_admin().table("submissions").insert(row).execute()
         submission_id = insert_res.data[0]["id"] if insert_res.data else None
     except Exception as e:
         traceback.print_exc()
@@ -236,7 +265,7 @@ def history():
     """Return the current user's submission history, newest first."""
     user = request.user
     try:
-        res = supabase_admin.table("submissions") \
+        res = get_supabase_admin().table("submissions") \
             .select("id, input_text, result, ai_probability, human_probability, created_at") \
             .eq("user_id", user.id) \
             .order("created_at", desc=True) \
@@ -264,7 +293,7 @@ def get_submission(submission_id):
     """Return a single submission with full highlighted sentences."""
     user = request.user
     try:
-        res = supabase_admin.table("submissions") \
+        res = get_supabase_admin().table("submissions") \
             .select("*") \
             .eq("id", submission_id) \
             .eq("user_id", user.id) \
