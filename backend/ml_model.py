@@ -1,17 +1,30 @@
 """
-ML Module — TF-IDF + Feature-Engineered classifier for AI text detection.
+ML Module — Hybrid AI Text Detection (TF-IDF + Transformer Ensemble)
+=====================================================================
 
 Functions:
-  load_model()          → loads saved pipeline from disk
+  load_model()          → loads both TF-IDF pipeline and transformer model
   analyze_text(text)    → returns label, probabilities, highlighted sentences
+
+This module wraps hybrid_detector.py and provides the same interface
+that app.py expects, so the API layer doesn't need to change.
 """
 
 import os
+import logging
 import joblib  # type: ignore
 import nltk  # type: ignore
 
-# Import custom transformer so joblib can deserialize the pipeline
+# Import custom transformer so joblib can deserialize the TF-IDF pipeline
 from train_model import StyleFeatureExtractor  # type: ignore  # noqa: F401
+
+# Import hybrid detector (TF-IDF + RoBERTa ensemble)
+from hybrid_detector import (  # type: ignore
+    load_all_models,
+    hybrid_predict,
+)
+
+logger = logging.getLogger(__name__)
 
 # Download punkt tokenizer data (needed for sentence splitting)
 try:
@@ -21,74 +34,71 @@ except LookupError:
 
 from nltk.tokenize import sent_tokenize  # type: ignore
 
-# ── Paths ────────────────────────────────────────────────────────────────────
-MODEL_DIR = os.path.join(os.path.dirname(__file__), "model")
-MODEL_PATH = os.path.join(MODEL_DIR, "ai_detector_pipeline.pkl")
-
-# ── Global model reference (loaded once) ─────────────────────────────────────
-_pipeline = None
+# ── Global flag ──────────────────────────────────────────────────────────────
+_models_loaded = False
 
 
 def load_model():
-    """Load the trained TF-IDF + Logistic Regression pipeline from disk."""
-    global _pipeline
-    if _pipeline is None:
-        if not os.path.exists(MODEL_PATH):
-            raise FileNotFoundError(
-                f"Model file not found at {MODEL_PATH}. "
-                "Run `python train_model.py` first."
-            )
-        _pipeline = joblib.load(MODEL_PATH)
-    return _pipeline
+    """
+    Load both the TF-IDF pipeline and the RoBERTa transformer model.
 
-
-def _predict_proba(pipeline, text):
-    """Return (ai_probability, human_probability) for a single text string."""
-    probs = pipeline.predict_proba([text])[0]
-    # Class order: index 0 = 'ai', index 1 = 'human'
-    classes = list(pipeline.classes_)
-    ai_idx = classes.index("ai")
-    human_idx = classes.index("human")
-    return float(probs[ai_idx]), float(probs[human_idx])
+    Safe to call multiple times — models are only loaded once.
+    """
+    global _models_loaded
+    if not _models_loaded:
+        load_all_models()
+        _models_loaded = True
+    return True
 
 
 def analyze_text(text: str) -> dict:
     """
-    Analyse the submitted text and return structured results.
+    Analyse the submitted text using the hybrid ensemble (TF-IDF + Transformer).
 
     Returns:
         {
-          "label": "AI Generated" | "Human Generated",
-          "ai_probability": float (0-100),
-          "human_probability": float (0-100),
-          "highlighted_sentences": [
+          "label":                  "AI Generated" | "Human Generated",
+          "ai_probability":         float (0–100),
+          "human_probability":      float (0–100),
+          "confidence":             float (0–100),
+          "model_details":          { tfidf: {...}, transformer: {...} },
+          "highlighted_sentences":  [
               {"sentence": str, "ai_probability": float, "is_ai": bool}, ...
           ]
         }
     """
-    pipeline = load_model()
+    # Ensure models are loaded
+    load_model()
 
-    # ── Overall prediction ────────────────────────────────────────────────────
-    ai_prob, human_prob = _predict_proba(pipeline, text)
-    label = "AI Generated" if ai_prob >= 0.5 else "Human Generated"
+    # ── Overall prediction (hybrid ensemble) ──────────────────────────────
+    result = hybrid_predict(text)
 
-    # ── Sentence-level highlighting ───────────────────────────────────────────
+    label = result["prediction"]
+    ai_prob = result["ai_probability"]
+    human_prob = result["human_probability"]
+    confidence = result["confidence"]
+
+    # ── Sentence-level highlighting ───────────────────────────────────────
     sentences = sent_tokenize(text)
     highlighted = []
     for sentence in sentences:
         clean = sentence.strip()
         if not clean:
             continue
-        s_ai, _ = _predict_proba(pipeline, clean)
+        # Use hybrid predictor for each sentence too
+        s_result = hybrid_predict(clean)
+        s_ai = s_result["ai_probability"]
         highlighted.append({
             "sentence": clean,
-            "ai_probability": float(f"{s_ai * 100:.2f}"),
-            "is_ai": s_ai > 0.6,  # threshold for highlighting
+            "ai_probability": round(s_ai, 2),
+            "is_ai": s_ai > 60.0,  # threshold for highlighting (60%)
         })
 
     return {
         "label": label,
-        "ai_probability": float(f"{ai_prob * 100:.2f}"),
-        "human_probability": float(f"{human_prob * 100:.2f}"),
+        "ai_probability": round(ai_prob, 2),
+        "human_probability": round(human_prob, 2),
+        "confidence": round(confidence, 2),
+        "model_details": result["model_details"],
         "highlighted_sentences": highlighted,
     }

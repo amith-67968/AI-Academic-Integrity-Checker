@@ -23,6 +23,7 @@ from supabase import create_client, Client  # type: ignore
 
 from ml_model import analyze_text, load_model  # type: ignore
 from text_extractor import extract_text  # type: ignore
+from train_model import StyleFeatureExtractor  # type: ignore  # noqa: F401
 
 # ── Init ─────────────────────────────────────────────────────────────────────
 load_dotenv()
@@ -67,12 +68,15 @@ if not SUPABASE_URL or not SUPABASE_KEY or not SUPABASE_SERVICE_KEY:
     print("   Required: SUPABASE_URL, SUPABASE_KEY, SUPABASE_SERVICE_KEY")
     print("   The server will start, but auth/DB routes will fail until configured.")
 
-# Pre-load the ML model at startup
+# Pre-load both ML models (TF-IDF + Transformer) at startup
 try:
     load_model()
-    print("✅ ML model loaded successfully")
+    print("✅ Hybrid ML models loaded successfully (TF-IDF + Transformer)")
 except FileNotFoundError as e:
     print(f"⚠️  {e}")
+except Exception as e:
+    print(f"⚠️  Model loading error: {e}")
+    print("   The server will start, but analysis may fail until models are available.")
 
 
 # ── Auth helper ──────────────────────────────────────────────────────────────
@@ -253,6 +257,8 @@ def analyze():
         "label": result["label"],
         "ai_probability": result["ai_probability"],
         "human_probability": result["human_probability"],
+        "confidence": result["confidence"],
+        "model_details": result.get("model_details"),
         "highlighted_sentences": result["highlighted_sentences"],
     }), 200
 
