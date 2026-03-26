@@ -1,5 +1,5 @@
 """
-ML Module — TF-IDF + Logistic Regression classifier for AI text detection.
+ML Module — TF-IDF + Feature-Engineered classifier for AI text detection.
 
 Functions:
   load_model()          → loads saved pipeline from disk
@@ -9,6 +9,9 @@ Functions:
 import os
 import joblib  # type: ignore
 import nltk  # type: ignore
+
+# Import custom transformer so joblib can deserialize the pipeline
+from train_model import StyleFeatureExtractor  # type: ignore  # noqa: F401
 
 # Download punkt tokenizer data (needed for sentence splitting)
 try:
