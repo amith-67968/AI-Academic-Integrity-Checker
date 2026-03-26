@@ -21,7 +21,7 @@ export default function Login() {
         password,
       });
       if (authError) throw authError;
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Login failed");
     } finally {

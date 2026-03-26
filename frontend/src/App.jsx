@@ -17,19 +17,23 @@ function AnimatedRoutes({ session }) {
       <Routes location={location} key={location.pathname}>
         <Route
           path="/login"
-          element={!session ? <Login /> : <Navigate to="/" />}
+          element={!session ? <Login /> : <Navigate to="/dashboard" />}
         />
         <Route
           path="/signup"
-          element={!session ? <Signup /> : <Navigate to="/" />}
+          element={!session ? <Signup /> : <Navigate to="/dashboard" />}
         />
         <Route
           path="/"
+          element={<LandingPage session={session} />}
+        />
+        <Route
+          path="/dashboard"
           element={
             session ? (
               <Dashboard session={session} />
             ) : (
-              <LandingPage />
+              <Navigate to="/login" />
             )
           }
         />

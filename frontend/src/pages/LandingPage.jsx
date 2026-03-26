@@ -1,20 +1,24 @@
 import { Link } from "react-router-dom";
 import { HeroGeometric } from "../components/ui/shape-landing-hero";
 
-export default function LandingPage() {
+export default function LandingPage({ session }) {
+  const targetRoute = session ? "/dashboard" : "/login";
+
   const actionButtons = (
     <div className="flex flex-col items-center gap-5">
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <Link 
-          to="/login" 
+          to={targetRoute} 
           className="px-8 py-3.5 rounded-xl bg-white text-[#0B0B0C] font-semibold tracking-wide hover:scale-[1.03] hover:shadow-[0_0_24px_rgba(255,255,255,0.4)] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50"
         >
-          Get Started
+          {session ? "Go to Dashboard" : "Get Started"}
         </Link>
       </div>
-      <p className="text-sm text-white/50 tracking-wide font-light">
-        No signup required • Instant results
-      </p>
+      {!session && (
+        <p className="text-sm text-white/50 tracking-wide font-light">
+          No signup required • Instant results
+        </p>
+      )}
     </div>
   );
 
@@ -31,17 +35,19 @@ export default function LandingPage() {
         </div>
         
         <div className="flex items-center gap-6">
+          {!session && (
+            <Link 
+              to="/login" 
+              className="text-sm text-white/70 hover:text-white transition-colors duration-200 focus:outline-none focus:text-white font-medium cursor-pointer"
+            >
+              Log in
+            </Link>
+          )}
           <Link 
-            to="/login" 
-            className="text-sm text-white/70 hover:text-white transition-colors duration-200 focus:outline-none focus:text-white font-medium cursor-pointer"
-          >
-            Log in
-          </Link>
-          <Link 
-            to="/login" 
+            to={targetRoute} 
             className="text-sm font-semibold bg-white text-[#0B0B0C] px-6 py-2.5 rounded-full hover:scale-[1.03] transition-all duration-200 hover:shadow-[0_0_16px_rgba(255,255,255,0.25)] focus:outline-none focus:ring-2 focus:ring-white/50 cursor-pointer"
           >
-            Get Started
+            {session ? "Dashboard" : "Get Started"}
           </Link>
         </div>
       </nav>

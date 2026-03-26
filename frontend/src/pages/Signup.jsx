@@ -35,7 +35,7 @@ export default function Signup() {
         });
       }
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message);
     } finally {

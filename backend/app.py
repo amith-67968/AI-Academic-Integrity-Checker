@@ -327,6 +327,26 @@ def get_submission(submission_id):
         return jsonify({"error": str(e)}), 500
 
 
+@app.route("/submission/<submission_id>", methods=["DELETE"])
+@require_auth
+def delete_submission(submission_id):
+    """Delete a single submission."""
+    user = request.user
+    try:
+        res = get_supabase_admin().table("submissions") \
+            .delete() \
+            .eq("id", submission_id) \
+            .eq("user_id", user.id) \
+            .execute()
+
+        if not res.data:
+            return jsonify({"error": "Submission not found or not authorized"}), 404
+
+        return jsonify({"message": "Successfully deleted"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 # ── Run ──────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
