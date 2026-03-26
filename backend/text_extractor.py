@@ -3,7 +3,7 @@ Text Extraction Layer — supports PDF, Image (OCR), and TXT files.
 """
 
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # type: ignore
 
 load_dotenv()
 
@@ -11,7 +11,7 @@ load_dotenv()
 
 def extract_from_pdf(file_storage) -> str:
     """Extract text from a PDF file upload (werkzeug FileStorage)."""
-    from PyPDF2 import PdfReader
+    from PyPDF2 import PdfReader  # type: ignore
 
     reader = PdfReader(file_storage)
     pages_text = []
@@ -26,8 +26,8 @@ def extract_from_pdf(file_storage) -> str:
 
 def extract_from_image(file_storage) -> str:
     """Extract text from an image using Tesseract OCR."""
-    import pytesseract
-    from PIL import Image
+    import pytesseract  # type: ignore
+    from PIL import Image  # type: ignore
 
     # Allow overriding the Tesseract path via env var
     tess_path = os.getenv("TESSERACT_PATH")

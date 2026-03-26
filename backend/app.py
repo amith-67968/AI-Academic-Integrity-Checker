@@ -16,13 +16,13 @@ import traceback
 from datetime import datetime
 from functools import wraps
 
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-from dotenv import load_dotenv
-from supabase import create_client, Client
+from flask import Flask, request, jsonify  # type: ignore
+from flask_cors import CORS  # type: ignore
+from dotenv import load_dotenv  # type: ignore
+from supabase import create_client, Client  # type: ignore
 
-from ml_model import analyze_text, load_model
-from text_extractor import extract_text
+from ml_model import analyze_text, load_model  # type: ignore
+from text_extractor import extract_text  # type: ignore
 
 # ── Init ─────────────────────────────────────────────────────────────────────
 load_dotenv()
