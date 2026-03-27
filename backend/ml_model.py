@@ -12,8 +12,18 @@ that app.py expects, so the API layer doesn't need to change.
 
 import os
 import logging
+import warnings
 import joblib  # type: ignore
 import nltk  # type: ignore
+
+# Suppress sklearn version-mismatch warnings and NLTK security warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="sklearn")
+warnings.filterwarnings("ignore", message="Security Violation")
+try:
+    from sklearn.exceptions import InconsistentVersionWarning  # type: ignore
+    warnings.filterwarnings("ignore", category=InconsistentVersionWarning)
+except ImportError:
+    pass
 
 # Import custom transformer so joblib can deserialize the TF-IDF pipeline
 from train_model import StyleFeatureExtractor  # type: ignore  # noqa: F401

@@ -10,7 +10,7 @@ export default function ResultPage() {
   const [animated, setAnimated] = useState(false);
 
   useEffect(() => {
-    if (!result) { navigate("/"); return; }
+    if (!result) { navigate("/dashboard"); return; }
     const timer = setTimeout(() => setAnimated(true), 100);
     return () => clearTimeout(timer);
   }, [result, navigate]);
@@ -42,7 +42,7 @@ export default function ResultPage() {
       <header className="relative z-10 flex items-center justify-between px-6 py-4 border-b border-white/[0.08] bg-[#0B0B0C]/80 backdrop-blur-md">
         <motion.button
           className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-400 bg-transparent border border-transparent hover:bg-white/[0.04] hover:border-white/[0.08] hover:text-white rounded-xl transition-all duration-200 cursor-pointer"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/dashboard")}
           whileTap={{ scale: 0.98 }}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -53,7 +53,7 @@ export default function ResultPage() {
         <h1 className="text-lg font-semibold tracking-tight text-white/90">Analysis Results</h1>
         <motion.button
           className="flex items-center gap-1.5 px-4 py-1.5 text-[13px] font-medium bg-[#EAEAEA] hover:bg-white text-[#0B0B0C] hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(234,234,234,0.2)] rounded-xl transition-all duration-200 shadow-sm cursor-pointer"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/dashboard")}
           whileTap={{ scale: 0.98 }}
         >
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

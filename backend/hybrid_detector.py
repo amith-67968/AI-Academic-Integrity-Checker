@@ -28,8 +28,18 @@ Usage:
 import os
 import re
 import logging
+import warnings
 import joblib  # type: ignore
 import numpy as np  # type: ignore
+
+# Suppress sklearn version-mismatch warnings (model was trained with an
+# older sklearn version — the warning is non-critical and confuses shells).
+warnings.filterwarnings("ignore", category=UserWarning, module="sklearn")
+try:
+    from sklearn.exceptions import InconsistentVersionWarning  # type: ignore
+    warnings.filterwarnings("ignore", category=InconsistentVersionWarning)
+except ImportError:
+    pass
 
 # Try to import transformer dependencies — optional for TF-IDF-only fallback
 _TRANSFORMER_AVAILABLE = False
@@ -110,7 +120,7 @@ def load_transformer_model():
         logger.info(f"Loading transformer model: {TRANSFORMER_MODEL_NAME} ...")
 
         # Select device: GPU if available, otherwise CPU
-        _device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        _device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # type: ignore
         logger.info(f"Using device: {_device}")
 
         # Load tokenizer and model
@@ -278,18 +288,18 @@ def predict_transformer(text: str) -> tuple[float, float]:
         attention_mask = [1] * len(input_ids)
 
         inputs = {
-            "input_ids": torch.tensor([input_ids], device=device),
-            "attention_mask": torch.tensor([attention_mask], device=device),
+            "input_ids": torch.tensor([input_ids], device=device),  # type: ignore
+            "attention_mask": torch.tensor([attention_mask], device=device),  # type: ignore
         }
 
         # Run inference without computing gradients (faster, less memory)
-        with torch.no_grad():
+        with torch.no_grad():  # type: ignore
             outputs = model(**inputs)
             logits = outputs.logits
 
         # Apply softmax to get probabilities
         # Model labels: {0: "Fake" (AI), 1: "Real" (Human)}
-        probs = torch.softmax(logits, dim=-1)[0].cpu().numpy()
+        probs = torch.softmax(logits, dim=-1)[0].cpu().numpy()  # type: ignore
         all_ai_probs.append(float(probs[0]))
         all_human_probs.append(float(probs[1]))
 
@@ -399,7 +409,8 @@ def hybrid_predict(
 # ═══════════════════════════════════════════════════════════════════════════════
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    import sys as _sys
+    logging.basicConfig(level=logging.INFO, stream=_sys.stdout)
 
     print("Loading models...")
     load_all_models()

@@ -1,9 +1,22 @@
 """Quick ML logic verification script."""
 import sys
+import warnings
 sys.path.insert(0, '.')
 
-from train_model import StyleFeatureExtractor  # noqa: F401
-from ml_model import load_model, analyze_text
+# Suppress sklearn version-mismatch warnings and NLTK security warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="sklearn")
+warnings.filterwarnings("ignore", message="Security Violation")
+try:
+    from sklearn.exceptions import InconsistentVersionWarning  # type: ignore
+    warnings.filterwarnings("ignore", category=InconsistentVersionWarning)
+except ImportError:
+    pass
+
+from train_model import StyleFeatureExtractor  # type: ignore  # noqa: F401
+from ml_model import load_model, analyze_text  # type: ignore
+
+import logging
+logging.basicConfig(level=logging.WARNING, stream=sys.stdout)
 
 print("Loading models...")
 load_model()
@@ -59,7 +72,7 @@ for text, expected in tests:
     is_correct = predicted == expected
     status = "PASS" if is_correct else "FAIL"
     if is_correct:
-        passed += 1
+        passed += 1  # type: ignore
     
     print(f"\n[{status}] Expected: {expected} | Got: {predicted}")
     print(f"  AI: {ai_prob}% | Human: {human_prob}%")
