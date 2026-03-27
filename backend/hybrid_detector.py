@@ -30,8 +30,16 @@ import re
 import logging
 import joblib  # type: ignore
 import numpy as np  # type: ignore
-import torch  # type: ignore
-from transformers import AutoTokenizer, AutoModelForSequenceClassification  # type: ignore
+
+# Try to import transformer dependencies — optional for TF-IDF-only fallback
+_TRANSFORMER_AVAILABLE = False
+try:
+    import torch  # type: ignore
+    from transformers import AutoTokenizer, AutoModelForSequenceClassification  # type: ignore
+    _TRANSFORMER_AVAILABLE = True
+except ImportError:
+    torch = None  # type: ignore
+    pass
 
 # Import custom transformer class so joblib can deserialize the TF-IDF pipeline
 from train_model import StyleFeatureExtractor  # type: ignore  # noqa: F401
@@ -91,6 +99,12 @@ def load_transformer_model():
     Uses GPU if available, otherwise falls back to CPU.
     """
     global _tokenizer, _transformer_model, _device
+
+    if not _TRANSFORMER_AVAILABLE:
+        raise ImportError(
+            "torch and/or transformers not installed. "
+            "Install with: pip install torch transformers"
+        )
 
     if _transformer_model is None:
         logger.info(f"Loading transformer model: {TRANSFORMER_MODEL_NAME} ...")

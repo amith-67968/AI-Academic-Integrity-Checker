@@ -1,0 +1,121 @@
+Loading models...
+Models loaded!
+
+======================================================================
+ML LOGIC VERIFICATION
+======================================================================
+
+[PASS] Expected: AI | Got: AI
+  AI: 99.17% | Human: 0.83%
+  Sentences highlighted: 2
+    [AI] (98.71%) The implementation of advanced algorithms has significantly improved s...
+    [AI] (99.56%) Furthermore, the integration of machine learning techniques has demons...
+
+[PASS] Expected: Human | Got: Human
+  AI: 0.49% | Human: 99.51%
+  Sentences highlighted: 3
+    [OK] (5.18%) I cant believe how expensive textbooks are....
+    [OK] (0.77%) Like seriously, $200 for a book I'll use for one semester?...
+    [OK] (0.05%) There has to be a better way....
+
+[PASS] Expected: Human | Got: Human
+  AI: 6.08% | Human: 93.92%
+  Sentences highlighted: 3
+    [OK] (1.57%) Global warming is a serious threat to our planet....
+    [OK] (41.05%) The earth's temperature has been rising steadily due to greenhouse gas...
+    [OK] (3.11%) We need to take action now before its too late for future generations....
+
+[PASS] Expected: AI | Got: AI
+  AI: 96.31% | Human: 3.69%
+  Sentences highlighted: 3
+    [AI] (99.71%) The comprehensive evaluation of artificial intelligence systems reveal...
+    [AI] (84.93%) First, algorithmic transparency is essential for building trust....
+    [AI] (82.95%) Second, data quality directly impacts model performance....
+
+[PASS] Expected: Human | Got: Human
+  AI: 3.95% | Human: 96.05%
+  Sentences highlighted: 3
+    [OK] (0.58%) Pollution is a big problem in our cities....
+    [OK] (17.42%) The air quality keeps getting worse because of vehicles and factories....
+    [OK] (8.51%) People are getting sick more often and the government needs to do some...
+
+======================================================================
+RESULTS: 5/5 tests passed
+======================================================================
+
+--- Model Details Structure Check ---
+  Has tfidf:          True
+  Has transformer:    True
+  Has text_features:  True
+  Fallback mode:      True
+  TF-IDF weight:      1.0
+  Transformer weight: 0.0
+
+All checks complete!
+C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\base.py:442: InconsistentVersionWarning: Trying to unpickle estimator TfidfTransformer from version 1.6.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\base.py:442: InconsistentVersionWarning: Trying to unpickle estimator TfidfVectorizer from version 1.6.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\base.py:442: InconsistentVersionWarning: Trying to unpickle estimator FeatureUnion from version 1.6.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\base.py:442: InconsistentVersionWarning: Trying to unpickle estimator LogisticRegression from version 1.6.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\sklearn\base.py:442: InconsistentVersionWarning: Trying to unpickle estimator Pipeline from version 1.6.1 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+\u26a0\ufe0f  Transformer model could not be loaded: torch and/or transformers not installed. Install with: pip install torch transformers
+   System will operate in TF-IDF-only mode.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\nltk\data.py:388: RuntimeWarning: Security Violation [pathsec.open]: Unauthorized path C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\Roaming\nltk_data\tokenizers\punkt_tab\english\collocations.tab
+  stream = _secure_open(self._path, "rb")
+C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\nltk\data.py:388: RuntimeWarning: Security Violation [pathsec.open]: Unauthorized path C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\Roaming\nltk_data\tokenizers\punkt_tab\english\sent_starters.txt
+  stream = _secure_open(self._path, "rb")
+C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\nltk\data.py:388: RuntimeWarning: Security Violation [pathsec.open]: Unauthorized path C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\Roaming\nltk_data\tokenizers\punkt_tab\english\abbrev_types.txt
+  stream = _secure_open(self._path, "rb")
+C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\nltk\data.py:388: RuntimeWarning: Security Violation [pathsec.open]: Unauthorized path C:\Users\bhata\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\Roaming\nltk_data\tokenizers\punkt_tab\english\ortho_context.tab
+  stream = _secure_open(self._path, "rb")
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
+\u26a0\ufe0f  Transformer prediction failed: torch and/or transformers not installed. Install with: pip install torch transformers
+   Falling back to TF-IDF-only prediction.
